@@ -401,6 +401,7 @@ textarea:focus {
 .send {
   position: fixed;
   display: block;
+  color: transparent;
   bottom: 0px;
   right: 0px;
   width: 8%;
