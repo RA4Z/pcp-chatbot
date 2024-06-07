@@ -5,6 +5,7 @@ import ChatIMG from '../images/chatbot.png'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { runChat } from '../services/chatbot';
+import { resetToken } from '../services/serverRequisition';
 
 interface Imessages {
   text: string,
@@ -28,14 +29,39 @@ function Chat() {
     return `${hours}:${minutes}:${seconds}`;
   }
 
+  async function apagarMensagens() {
+    await resetToken()
+    setMessages([])
+  }
+
   async function enviarMensagem() {
-    if (inputText === '') {
+    if (inputText.trim() === '') {
       alert('Não é permitido enviar uma mensagem em branco ao Chatbot!')
       return;
     }
+    const question = inputText
     const updatedHistory = [...messages]
-    updatedHistory.push({ text: inputText, chatbot: false, time:getTimeNow() })
-    console.log(await runChat(inputText))
+    updatedHistory.push({ text: question.replace(/\n/g, ' <br>'), chatbot: false, time: getTimeNow() })
+    setMessages(updatedHistory)
+
+    setInputText('')
+    let attempts = 3;
+    let response = ''
+
+    while (attempts > 0) {
+      try {
+        response = await runChat(question);
+        break;
+      } catch (error: any) {
+        if (attempts > 1) {
+          response = error;
+          attempts--;
+        }
+      }
+    }
+    const updatedAnswer = [...updatedHistory];
+    updatedAnswer.push({ text: response, chatbot: true, time: getTimeNow() });
+    setMessages(updatedAnswer);
   }
 
   return (
@@ -48,28 +74,29 @@ function Chat() {
       </div>
 
       <ol className="chat">
-        <li className="self">
-          <div className="msg">
-            <p>Puff...</p>
-            <p>I'm still doing the Góngora comment...</p>
-            <p>Better other day</p>
-            <time>20:18</time>
-          </div>
-        </li>
-
-        <li className="other">
-          <div className="msg">
-            <div className="user">Chatbot PCP</div>
-            <p>What comment about Góngora?</p>
-            <time>20:18</time>
-          </div>
-        </li>
+        {messages.map((message, index) => (
+          <li key={index} className={message.chatbot ? 'other' : 'self'}>
+            <div className='msg'>
+              {message.chatbot && <div className="user">Chatbot PCP</div>}
+              <p dangerouslySetInnerHTML={{ __html: message.text }} />
+              <time>{message.time}</time>
+            </div>
+          </li>
+        ))}
       </ol>
 
       <div className="typezone">
-        <textarea placeholder="Escreva seu Comando..." value={inputText} onChange={e => setInputText(e.target.value)}></textarea>
-        <input type="submit" className="send" onClick={() => enviarMensagem()} />
-        <img src={ApagarIMG} title='Apagar Histórico de Conversas' alt='Apagar Histórico de Conversas' className="emojis" /></div>
+        <textarea placeholder="Escreva seu Comando..."
+          value={inputText}
+          onChange={e => setInputText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              enviarMensagem();
+            }
+          }} />
+        <input title='Enviar Comando ao Chatbot' type="submit" className="send" onClick={() => enviarMensagem()} />
+        <img src={ApagarIMG} title='Apagar Histórico de Conversas' alt='Apagar Histórico de Conversas' className="emojis" onClick={() => apagarMensagens()} /></div>
     </>
   );
 }
