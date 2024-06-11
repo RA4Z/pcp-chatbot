@@ -32,8 +32,10 @@ function Chat() {
   }
 
   async function apagarMensagens() {
-    await resetToken()
-    setMessages([])
+    if (!loading) {
+      await resetToken()
+      setMessages([])
+    }
   }
 
   async function enviarMensagem() {

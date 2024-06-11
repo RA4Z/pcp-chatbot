@@ -16,7 +16,7 @@ async function getIpAddress(): Promise<string> {
 
 export async function resetToken() {
     const ipAddress = await getIpAddress();
-    const userName = ipAddress.replaceAll('.', '');
+    const userName = ipAddress;
     const url = 'http://10.1.43.63:5000/quit';
     const data = {
         username: encodeURIComponent(userName),
