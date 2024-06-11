@@ -15,8 +15,7 @@ async function getIpAddress(): Promise<string> {
 }
 
 export async function resetToken() {
-    const ipAddress = await getIpAddress();
-    const userName = ipAddress;
+    const userName = 'SITE';
     const url = 'http://10.1.43.63:5000/quit';
     const data = {
         username: encodeURIComponent(userName),
@@ -29,11 +28,7 @@ export async function resetToken() {
 // Define uma função assíncrona para enviar a mensagem
 export async function enviarMensagem(message: string): Promise<string> {
     try {
-        // Obtém o endereço IP
-        const ipAddress = await getIpAddress();
-        // Remove pontos do endereço IP para o nome de usuário
-        const userName = ipAddress.replaceAll('.', '');
-        // Define o URL do servidor
+        const userName = 'SITE';
         const url = 'http://10.1.43.63:5000/gemini';
         
         // Cria os dados a serem enviados
