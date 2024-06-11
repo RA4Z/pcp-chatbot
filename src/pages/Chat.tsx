@@ -6,6 +6,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { runChat } from '../services/chatbot';
 import { resetToken } from '../services/serverRequisition';
+import { Box, LinearProgress } from '@mui/material';
 
 interface Imessages {
   text: string,
@@ -16,6 +17,7 @@ interface Imessages {
 function Chat() {
   const [messages, setMessages] = useState<Imessages[]>([])
   const [inputText, setInputText] = useState('')
+  const [loading, setLoading] = useState(false)
 
   function getTimeNow() {
     const now = new Date();
@@ -48,6 +50,7 @@ function Chat() {
     let attempts = 3;
     let response = ''
 
+    setLoading(true)
     while (attempts > 0) {
       try {
         response = await runChat(question);
@@ -62,6 +65,7 @@ function Chat() {
     const updatedAnswer = [...updatedHistory];
     updatedAnswer.push({ text: response, chatbot: true, time: getTimeNow() });
     setMessages(updatedAnswer);
+    setLoading(false)
   }
 
   return (
@@ -72,8 +76,11 @@ function Chat() {
         <div className="name">Chatbot PCP - BETA</div>
         <div className="members">Desenvolvido e prototipado por Robert Aron Zimmermann</div>
       </div>
-
       <ol className="chat">
+        {loading && <Box sx={{ width: '100%', position: 'fixed' }}>
+          <LinearProgress />
+        </Box>}
+
         {messages.map((message, index) => (
           <li key={index} className={message.chatbot ? 'other' : 'self'}>
             <div className='msg'>
@@ -87,6 +94,7 @@ function Chat() {
 
       <div className="typezone">
         <textarea placeholder="Escreva seu Comando..."
+          disabled={loading}
           value={inputText}
           onChange={e => setInputText(e.target.value)}
           onKeyDown={(e) => {
@@ -95,7 +103,7 @@ function Chat() {
               enviarMensagem();
             }
           }} />
-        <input title='Enviar Comando ao Chatbot' type="submit" className="send" onClick={() => enviarMensagem()} />
+        <input disabled={loading} title='Enviar Comando ao Chatbot' type="submit" className="send" onClick={() => enviarMensagem()} />
         <img src={ApagarIMG} title='Apagar Histórico de Conversas' alt='Apagar Histórico de Conversas' className="emojis" onClick={() => apagarMensagens()} /></div>
     </>
   );
