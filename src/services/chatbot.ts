@@ -4,6 +4,7 @@ resetToken()
 
 async function runChat(paramText: string) {
     const result = await enviarMensagem(paramText)
+    console.log(result)
     const response = result;
     
     let formattedText = response.replace(/\n/g, ' <br>');
