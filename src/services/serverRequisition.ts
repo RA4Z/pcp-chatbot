@@ -1,18 +1,18 @@
 import axios from 'axios';
-import { getIp } from './GetIP';
+// import { getIp } from './GetIP';
 
-// Define uma função assíncrona para obter o endereço IP
-async function getIpAddress(): Promise<string> {
-    return new Promise((resolve, reject) => {
-        getIp((ip: any) => {
-            if (ip) {
-                resolve(ip);
-            } else {
-                reject('Failed to get IP address');
-            }
-        });
-    });
-}
+// // Define uma função assíncrona para obter o endereço IP
+// async function getIpAddress(): Promise<string> {
+//     return new Promise((resolve, reject) => {
+//         getIp((ip: any) => {
+//             if (ip) {
+//                 resolve(ip);
+//             } else {
+//                 reject('Failed to get IP address');
+//             }
+//         });
+//     });
+// }
 
 export async function resetToken() {
     const userName = 'SITE';
