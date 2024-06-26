@@ -2,6 +2,7 @@ import './Chat.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ApagarIMG from '../images/apagar.png'
 import ChatIMG from '../images/chatbot.png'
+import DownloadIMG from '../images/download.png'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { runChat } from '../services/chatbot';
@@ -84,6 +85,10 @@ function Chat() {
           <img src={ChatIMG} alt='Imagem de perfil' draggable="false" /></a>
         <div className="name">Chatbot PCP - BETA</div>
         <div className="members">Desenvolvido e prototipado por Robert Aron Zimmermann</div>
+        <a href='https://weg365-my.sharepoint.com/:u:/g/personal/robertn_weg_net/EfGE6YDCYRZKslsK-e-KITsBFDHXtIJw2CUhkxjG0Uc_3Q?e=Im2akc'>
+          <img title='Download do Chatbot PCP Portátil' className='download' src={DownloadIMG} alt='Download do Chatbot Portátil' />
+        </a>
+
       </div>
       <ol className="chat">
         {loading && <Box sx={{ width: '100%', position: 'fixed' }}>

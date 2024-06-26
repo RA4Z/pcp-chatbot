@@ -505,3 +505,10 @@ textarea:focus {
     right: 10px;
   }
 }
+
+.download {
+  width: 50px;
+  float: right;
+  margin: 5px;
+  cursor: pointer;
+}
