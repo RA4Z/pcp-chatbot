@@ -9,6 +9,7 @@ import { runChat } from '../services/chatbot';
 import { resetToken } from '../services/serverRequisition';
 import { Box, LinearProgress } from '@mui/material';
 import Disabled from '../components/Disabled';
+import Propaganda from '../components/Propaganda';
 
 interface Imessages {
   text: string,
@@ -88,6 +89,7 @@ function Chat() {
         <a href='https://weg365-my.sharepoint.com/:u:/g/personal/robertn_weg_net/EfGE6YDCYRZKslsK-e-KITsBFDHXtIJw2CUhkxjG0Uc_3Q?e=Im2akc'>
           <img title='Download do Chatbot PCP Portátil' className='download' src={DownloadIMG} alt='Download do Chatbot Portátil' />
         </a>
+        <Propaganda />
 
       </div>
       <ol className="chat">
