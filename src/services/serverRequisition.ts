@@ -54,10 +54,7 @@ export async function enviarMensagem(message: string): Promise<string> {
     } catch (error: any) {
         // Retorna uma mensagem de erro com a descrição do erro
         if (error.message === 'Network Error') {
-            return `Erro de conexão com o servidor, siga o passo a passo abaixo:<br>
-            <strong>• Acessar configurações do site </strong>
-            <strong>• Em Conteúdo não seguro selecionar a opção "Permitir", assim você conseguirá se conectar ao servidor da rede do PCP</strong>
-            <strong>• Aguardar alguns instantes e atualizar a página</strong>`
+            return `Network Error`
         } else {
             return `Erro ao enviar a mensagem: ${error.message}`;
         }

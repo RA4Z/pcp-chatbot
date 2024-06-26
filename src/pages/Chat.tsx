@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { runChat } from '../services/chatbot';
 import { resetToken } from '../services/serverRequisition';
 import { Box, LinearProgress } from '@mui/material';
+import Disabled from '../components/Disabled';
 
 interface Imessages {
   text: string,
@@ -18,6 +19,7 @@ function Chat() {
   const [messages, setMessages] = useState<Imessages[]>([])
   const [inputText, setInputText] = useState('')
   const [loading, setLoading] = useState(false)
+  const [disabledError, setDisabledError] = useState(false)
 
   function getTimeNow() {
     const now = new Date();
@@ -64,6 +66,10 @@ function Chat() {
         }
       }
     }
+    if (response === 'Network Error') {
+      setDisabledError(true)
+      return
+    }
     const updatedAnswer = [...updatedHistory];
     updatedAnswer.push({ text: response, chatbot: true, time: getTimeNow() });
     setMessages(updatedAnswer);
@@ -72,6 +78,7 @@ function Chat() {
 
   return (
     <>
+      <Disabled open={disabledError} setOpen={setDisabledError} />
       <div className="menu">
         <a href="https://automations-database.vercel.app/" className="back"><FontAwesomeIcon icon={faAngleLeft} title="Voltar para Automation's Database" />
           <img src={ChatIMG} alt='Imagem de perfil' draggable="false" /></a>

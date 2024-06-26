@@ -4,9 +4,12 @@ resetToken()
 
 async function runChat(paramText: string) {
     const result = await enviarMensagem(paramText)
-    console.log(result)
     const response = result;
-    
+
+    if(response === 'Network Error') {
+        return 'Network Error'
+    }
+
     let formattedText = response.replace(/\n/g, ' <br>');
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replace(/\*/g, "•");
