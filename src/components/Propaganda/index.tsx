@@ -26,21 +26,15 @@ export default function Propaganda() {
     };
 
     useEffect(() => {
-        // Obtém o contador do localStorage ou define como 0 se não existir
-        let contador = parseInt(localStorage.getItem('contador') || '0', 15);
-
-        // Incrementa o contador, limitando a 10
+        let contador = parseInt(localStorage.getItem('propaganda_chatbot') || '0', 15);
         contador = Math.min(contador + 1, 15);
+        localStorage.setItem('propaganda_chatbot', contador.toString());
 
-        // Salva o contador atualizado no localStorage
-        localStorage.setItem('contador', contador.toString());
-
-        // Abre a notificação quando o contador atingir 10
         if (contador === 15) {
             openNotification();
-            localStorage.setItem('contador', '0'); // Reinicia o contador
+            localStorage.setItem('propaganda_chatbot', '0');
         }
-    }, []); // Executa a cada atualização da página
+    }, []);
 
     return (
         <Button
