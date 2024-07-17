@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ApagarIMG from '../images/apagar.png'
 import ChatIMG from '../images/chatbot.png'
 import DownloadIMG from '../images/download.png'
+import AgentIMG from '../images/agent.png'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { runChat } from '../services/chatbot';
@@ -88,6 +89,9 @@ function Chat() {
         <div className="members">Desenvolvido e prototipado por Robert Aron Zimmermann</div>
         <a href='https://weg365-my.sharepoint.com/:u:/g/personal/robertn_weg_net/EfGE6YDCYRZKslsK-e-KITsBFDHXtIJw2CUhkxjG0Uc_3Q?e=Im2akc'>
           <img title='Download do Chatbot PCP Portátil' className='download' src={DownloadIMG} alt='Download do Chatbot Portátil' />
+        </a>
+        <a href='https://weg365-my.sharepoint.com/:u:/g/personal/robertn_weg_net/Eb2pqhYtLvdEn2O33U4y554BztwATI8SkMxp2gOFhCoWUA?e=RogLQs'>
+          <img title='Download do IAron Agent' className='download' src={AgentIMG} alt='Download do IAron Agent' />
         </a>
         <Propaganda />
 
