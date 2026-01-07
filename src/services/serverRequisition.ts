@@ -16,7 +16,7 @@ import axios from 'axios';
 
 export async function resetToken() {
     const userName = 'SITE';
-    const url = 'http://10.1.43.63:5000/quit';
+    const url = 'http://10.1.43.72:5000/quit';
     const data = {
         username: encodeURIComponent(userName),
     };
@@ -29,7 +29,7 @@ export async function resetToken() {
 export async function enviarMensagem(message: string): Promise<string> {
     try {
         const userName = 'SITE';
-        const url = 'http://10.1.43.63:5000/gemini';
+        const url = 'http://10.1.43.72:5000/gemini';
 
         // Cria os dados a serem enviados
         const data = {
